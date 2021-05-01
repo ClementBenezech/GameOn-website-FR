@@ -44,7 +44,7 @@ function launchModal() {
 
 function validate() {
  
-  alert("Script de validation");
+  /*alert("Script de validation");*/
 
         validForm = true;
 
@@ -130,7 +130,7 @@ function validate() {
         }
 
 
-        //checking the checkbox for terms and conditions
+        //On vérifie si la checkbox des conditions d'utilisation est cochée. 
         if (document.getElementById('checkbox1').checked)
         {
           displayNone(document.getElementById('checkbox1-error-message'));
@@ -144,19 +144,18 @@ function validate() {
         //On renvoie ValidForm pour valider ou non le formulaire.
         console.log(validForm);
         
+        //Si le formulaire est valide, afficher un message de confirmation. 
+        
         if (validForm) 
         {
 
 
-          alert("Votre formulaire d'inscription a bien été pris en compte");
+          alert("Votre Inscription a bien été prise en compte");
           /*displayBlock(document.getElementById('confirmation-message'));
           setTimeout(function(){ 
             displayNone(document.getElementById('confirmation-message'));
           }, 3000);*/
-        }
-        
-        
-        
+        } 
        
         
         return validForm;
