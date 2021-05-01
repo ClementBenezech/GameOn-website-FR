@@ -27,6 +27,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 closeBtn.addEventListener("click", closeModal);
 
+/*************************************************************************************************************/
 
 // launch modal form
 function launchModal() {
@@ -35,111 +36,47 @@ function launchModal() {
 
 }
 
+/*************************************************************************************************************/
+
 //Close Modal form function
   function closeModal() {
     modalbg.style.display = "none";
   }
 
+/*************************************************************************************************************/
+
 //Validation of sign up form field values
 
 function validate() {
- 
-  /*alert("Script de validation");*/
 
+        //On considère le formulaire valide au départ. Le script mettra à jour cette variable vers FALSE si un champ s'avère invalide
+        
         validForm = true;
 
-        //test du prénom
-  
-        if ( document.getElementById('first').value.length > 2 && document.getElementById('first').value)
-        {
-          displayNone(document.getElementById('first-error-message'));
-        }
-        else 
-        {
-          validForm = false;
-          displayBlock(document.getElementById('first-error-message'));
-          
-        }
+        /*On commence par selectionner tous les inputs de type text appartenant à la classe text-control dans signUpForm*/
+        const formFields = document.getElementById("signUpForm").querySelectorAll(".text-control , #checkbox1");
 
-        //test du nom
-
-        if ( document.getElementById('last').value.length > 2 && document.getElementById('last').value)
-        {
-          displayNone(document.getElementById('last-error-message'));
-        }
-        else 
-        {
-          validForm = false;
-          displayBlock(document.getElementById('last-error-message'));
-        }
-
-        //test de l'email
-
-        if (document.getElementById('email').value.match(mailFormat) && document.getElementById('email').value )
-        {
-          displayNone(document.getElementById('email-error-message'));
-        }
-        else 
-        {
-          displayBlock(document.getElementById('email-error-message'));
-          validForm = false;
-        }
-
-         //test de la date de naissance
-
-         if (document.getElementById('birthdate').value)
-         {
-           displayNone(document.getElementById('birthdate-error-message'));
-         }
-         else 
-         {
-           displayBlock(document.getElementById('birthdate-error-message'));
-           validForm = false;
-         }
-
-          //test du nombre de tournois
-
-          if (document.getElementById('quantity').value)
-          {
-            displayNone(document.getElementById('quantity-error-message'));
-          }
-          else 
-          {
-            displayBlock(document.getElementById('quantity-error-message'));
-            validForm = false;
-          }
-
-  
-        //test du choix de la ville
+        console.log(formFields);
         
-        //On recupère la liste des enfants de location-selectors, et on la transforme en tableau
-        const locationSelectors = [].slice.call(document.getElementById("location-selectors").children);
-        /*console.log("location selectors "+locationSelectors);*/
-        
-        
-        //Via la fonction checkIfChecked, on vérifie si au moins une des radio est selectionnée.
-        //Si ce n'est pas le cas, on passe validForm à false
-        if (checkIfChecked(locationSelectors))
-        {
-          displayNone(document.getElementById('radio-error-message'));
-        }
-        else
-        {
-          validForm = false;
-          displayBlock(document.getElementById('radio-error-message'));
-        }
+        /*Ensuite, pour chaque élément, on effectue le traitement suivant*/
+        formFields.forEach($element => {
 
+            /*Verification que la donnée entrée correspond au format attendu pour le champ*/
+            requirementsMet = checkUniqueFieldRequirements($element.id);
 
-        //On vérifie si la checkbox des conditions d'utilisation est cochée. 
-        if (document.getElementById('checkbox1').checked)
-        {
-          displayNone(document.getElementById('checkbox1-error-message'));
-        }
-        else
-        {
-          validForm = false;
-          displayBlock(document.getElementById('checkbox1-error-message'));
-        }
+            /*console.log($element.id); */
+
+            //Gestion de l'affichage conditionnel du message d'erreur en fonction de la réponse de checkUniqueFieldRequirements()*/
+            handleDisplay(requirementsMet, $element.id);
+
+            //Gestion du state global de validation du formulaire
+            UpdateFormValidState(requirementsMet);
+          })
+
+        /*traitement séparé pour les boutons Radio de selection de ville*/
+        requirementsMet = checkLocationRequirements();
+        handleDisplay(requirementsMet, 'location-selectors');
+        UpdateFormValidState(requirementsMet);
 
         //On renvoie ValidForm pour valider ou non le formulaire.
         console.log(validForm);
@@ -148,19 +85,115 @@ function validate() {
         
         if (validForm) 
         {
-
-
           alert("Votre Inscription a bien été prise en compte");
-          /*displayBlock(document.getElementById('confirmation-message'));
-          setTimeout(function(){ 
-            displayNone(document.getElementById('confirmation-message'));
-          }, 3000);*/
         } 
-       
-        
+
+        //On renvoie la valeur de validForm. S'il est resté à true, alors on valide le formulaire.
         return validForm;
-        /*return false;*/
 }
+
+/*************************************************************************************************************/
+
+
+function handleDisplay ($requirementsMet, $fieldID)
+{
+
+  console.log("handle display recoit "+$requirementsMet+" "+$fieldID);
+  console.log("handle display cherche à atteindre l'élément: "+$fieldID+'-error-message');
+
+        if ($requirementsMet == true)
+        {
+            console.log("Handle display rentre dans la conditions $requirementsMet = true pour l'ID "+$fieldID);
+            displayNone(document.getElementById($fieldID+'-error-message'));
+        }
+        else 
+        {
+            console.log("Handle display rentre dans la conditions $requirementsMet = false pour l'ID "+$fieldID);
+            displayBlock(document.getElementById($fieldID+'-error-message'));
+        }
+}
+
+/*************************************************************************************************************/
+
+
+//Met à jour la valeur de validForm avec l'argument passé.
+function UpdateFormValidState ($validField) {
+        validForm = $validField;
+        console.log("ValidForm vaut "+validForm);
+}
+
+/*************************************************************************************************************/
+
+function checkLocationRequirements () {
+  //On recupère la liste des enfants de location-selectors, et on la transforme en tableau
+  const locationSelectors = [].slice.call(document.getElementById("location-selectors").children);  
+  
+  //Via la fonction checkIfChecked, on vérifie si au moins une des radio est selectionnée.
+  if (checkIfChecked(locationSelectors))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+/*************************************************************************************************************/
+
+function checkUniqueFieldRequirements ($id) {
+  switch ($id) {
+  case 'first':
+  case 'last':
+    if ( document.getElementById($id).value.length > 2 && document.getElementById($id).value)
+    {
+      return true;
+    }
+    else{
+
+      return false;
+    };
+    break;
+  case 'birthdate':
+  case 'quantity':
+    if (document.getElementById($id).value)
+    {
+      return true;
+    }
+    else{
+
+      return false;
+      
+    };
+  break;
+  case 'email':
+    if (document.getElementById($id).value.match(mailFormat) && document.getElementById($id).value )
+      {
+        return true;
+      }
+      else 
+      {
+
+        return false;
+        
+      }
+  break;
+  case 'checkbox1':
+    if (document.getElementById($id).checked )
+      {
+        return true;
+      }
+      else 
+      {
+
+        return false;
+
+      }
+  break;
+  }
+}
+
+/*************************************************************************************************************/
 
 
 //Fonction qui rend un bloc visible
@@ -169,11 +202,15 @@ function displayBlock ($element) {
           $element.style.display = 'block';
 }
 
+/*************************************************************************************************************/
+
 
 //fonction qui rend un bloc invisible
 function displayNone ($element) {
   $element.style.display = 'none';
 }
+
+/*************************************************************************************************************/
 
 //fonction qui, partant d'un tableau d'éléments, vérifie si au moins l'un d'entre eux est coché.
 
@@ -200,4 +237,6 @@ function checkIfChecked ($element) {
 
 
 }
+
+/*************************************************************************************************************/
 

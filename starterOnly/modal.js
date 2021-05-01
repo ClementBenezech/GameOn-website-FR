@@ -50,7 +50,7 @@ function validate() {
 
         //test du prénom
   
-        if ( document.getElementById('first').value.length > 2 && document.getElementById('first').value)
+        /*if ( document.getElementById('first').value.length > 2 && document.getElementById('first').value)
         {
           displayNone(document.getElementById('first-error-message'));
         }
@@ -59,11 +59,17 @@ function validate() {
           validForm = false;
           displayBlock(document.getElementById('first-error-message'));
           
-        }
+        }*/
+
+        handleDisplay(checkRequirements ('first'), 'first');
+        handleDisplay(checkRequirements ('name'), 'name');
+        handleDisplay(checkRequirements ('email'), 'email');
+        handleDisplay(checkRequirements ('birthdate'), 'birthdate');
+        handleDisplay(checkRequirements ('quantity'), 'birthdate');
 
         //test du nom
 
-        if ( document.getElementById('last').value.length > 2 && document.getElementById('last').value)
+        /*if ( document.getElementById('last').value.length > 2 && document.getElementById('last').value)
         {
           displayNone(document.getElementById('last-error-message'));
         }
@@ -107,7 +113,7 @@ function validate() {
           {
             displayBlock(document.getElementById('quantity-error-message'));
             validForm = false;
-          }
+          }*/
 
   
         //test du choix de la ville
@@ -153,14 +159,45 @@ function validate() {
           setTimeout(function(){ 
             displayNone(document.getElementById('confirmation-message'));
           }, 3000);*/
-        }
-        
-        
-        
-       
+        }  
         
         return validForm;
         /*return false;*/
+}
+
+function checkRequirements ($id) {
+      switch ($id) {
+      case 'first':
+        if ( document.getElementById($id).value.length > 2 && document.getElementById($id).value)
+        {
+          return true;
+        }
+        else{
+          return false;
+        }
+      break;
+      case 'last':
+      break;
+      case 'birthdate':
+      break;
+      case 'email':
+      break;
+      case 'quantity':
+      break;
+      }
+}
+
+function handleDisplay ($requirementsMet, $fieldID)
+{
+  if ($requirementsMet = true)
+  {
+    displayNone(document.getElementById($fieldID+'-error-message'));
+  }
+  else 
+  {
+    validForm = false;
+    displayBlock(document.getElementById($fieldID+'-error-message'));
+  }
 }
 
 
@@ -180,24 +217,24 @@ function displayNone ($element) {
 
 function checkIfChecked ($element) {
             
-            /*console.log($element.checked);*/
-            let radioChecked = false;
+    /*console.log($element.checked);*/
+    let radioChecked = false;
 
-           //Quand un élément est coché, passer radioChecked à true
-           
-           $element.forEach($element => {
+    //Quand un élément est coché, passer radioChecked à true
+    
+    $element.forEach($element => {
 
-              if ($element.checked)
-              {
-                  /*console.log("Okay, element "+$element.id+" is checked");*/
-                  radioChecked = true;
-              }
+      if ($element.checked)
+      {
+          /*console.log("Okay, element "+$element.id+" is checked");*/
+          radioChecked = true;
+      }
 
 
 
-            })
-            //on renvoie radiochecked.
-            return radioChecked;
+    })
+    //on renvoie radiochecked.
+    return radioChecked;
 
 
 }
