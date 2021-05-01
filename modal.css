@@ -28,7 +28,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: red;
-  position:fixed;
+  position: fixed;
   top: 0;
   left: 0;
   display: none;
@@ -90,40 +90,83 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
+  .main-navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    /*padding-top: 3vh;*/
+    margin-top: 6vh;
+  }
+
   .topnav a {
     display: none;
+    padding: 20px 20px;
   }
   .topnav a.icon {
     float: right;
     display: block;
+    margin-top: 1vh;
+    color: red;
+    position: absolute;
+    top: -6vh;
+    right: 0;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .topnav.responsive {
     position: relative;
   }
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
+
+  .main-navbar {
+    position: fixed;
     top: 0;
+    right: 0;
+    z-index: 99;
+    margin-top: 6vh;
+    background-color: rgba(255, 255, 255, 0.822);
+  }
+
+  .topnav a:hover {
+    /*added transparent cbackground-color instead of red for mobile layouts*/
+    background-color: transparent;
+  }
+  .topnav.responsive a.icon {
+    float: right;
+    display: block;
+    margin-top: 5px;
+    color: red;
+    position: absolute;
+    top: -6vh;
+    right: 0;
   }
   .topnav.responsive a {
     float: none;
     display: block;
-    text-align: left;
+    text-align: center;
+    margin-top: 5px;
+    color: red;
   }
 }
 
 @media screen and (max-width: 540px) {
   .topnav a {
     display: none;
+    padding: 20px 20px;
+  }
+
+  .topnav a:hover {
+    /*added transparent cbackground-color instead of red for mobile layouts*/
+    background-color: transparent;
   }
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    margin-top: 5px;
+    color: red;
   }
 }
 
@@ -207,8 +250,6 @@ main {
   padding-top: 10px;
 }
 
-
-
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
@@ -235,8 +276,6 @@ input {
   /*background-color: rgba(255, 255, 255, 0.904);*/
   padding: 0 20px 0 0;
   margin: 12px 0 12px 0;
-
-
 }
 .text-control {
   margin: 0;
