@@ -25,14 +25,28 @@ body {
 }
 
 .confirmation-message {
-  width: 100vw;
-  height: 100vh;
-  background-color: red;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   display: none;
-  z-index: 99;
+  height: 90vh;
+  width: 100%;
+
+}
+
+.confirmation-message-visible {
+  background-color: black;
+  position: relative;
+  box-sizing:border-box;
+  top: 0;
+  left: 0;
+  height: 90vh;
+  display: block;
+  font-size: 25px;
+  text-align:center;
+  margin: 0 auto;
+  padding: 40vh 10vh 10vh;
+  max-width: 500px;
 }
 
 p {
@@ -247,7 +261,7 @@ main {
   overflow: hidden;
   position: relative;
   color: #fff;
-  padding-top: 10px;
+  padding-top: 0;
 }
 
 .modal-body {
@@ -382,6 +396,7 @@ input[data-error]::after {
   opacity: 1;
   cursor: pointer;
   transform: scale(0.7);
+  z-index:2;
 }
 .close:before,
 .close:after {

@@ -52,20 +52,25 @@
           je m'inscris
         </button>
       </div>
-      <!--<div id='confirmation-message' class="confirmation-message"></div>-->
+      
       <div class="bground">
 
         <div class="content">
           
+          
           <span class="close"></span>
+          <div id='confirmation-message' class="confirmation-message">Merci, votre inscription a bien été prise en compte!</div>
           <div class="modal-body">
+
             <form
               name="reserve"
               id="signUpForm"
               action="index.html"
-              method="get"
-              onsubmit="return validate();"
-            >
+              method="get" 
+              onsubmit="event.preventDefault();return validate();"
+                         >
+
+
               <div
                 class="formData">
                 <label>Prénom</label><br>
@@ -217,6 +222,7 @@
                 <br>
               </div>
               <input
+              id="btn-submit"
                 class="btn-submit"
                 type="submit"
                 class="button"
