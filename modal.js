@@ -25,7 +25,8 @@ console.log(closeBtn);
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+document.getElementById("btn-submit").addEventListener("click", validate);
+/*modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));*/
 
 closeBtn.addEventListener("click", closeModal);
 /*formBtn.addEventListener("click", validate);*/
@@ -41,10 +42,16 @@ function launchModal() {
 
 //Close Modal form function
   function closeModal() {
-    document.getElementById("confirmation-message").className = 'confirmation-message';
-    modalbg.style.display = "none";
-    document.getElementsByClassName("modal-body")[0].style.display ='block';
     
+    document.getElementById("btn-submit").removeEventListener("click", closeModal);
+    document.getElementById("btn-submit").addEventListener("click", validate);
+    
+    console.log("JUSTE AVANT ALTERMODAL DANS CLOSEMODAL");
+
+    
+    alterModal("none", "block", "C'est parti!"); 
+
+    modalbg.style.display = "none";
     
   }
 
@@ -82,47 +89,68 @@ function validate() {
         validForm = true;
 
         /*On commence par selectionner tous les inputs de type text appartenant à la classe text-control dans signUpForm*/
-        const formFields = document.getElementById("signUpForm").querySelectorAll(".text-control , #checkbox1");
-
-        console.log(formFields);
+        var formFields = document.getElementById("signUpForm").querySelectorAll(".text-control , #checkbox1");
         
         /*Ensuite, pour chaque élément, on effectue le traitement suivant*/
         formFields.forEach($element => {
 
-            /*Verification que la donnée entrée correspond au format attendu pour le champ*/
-            requirementsMet = checkUniqueFieldRequirements($element.id);
-
-            /*console.log($element.id); */
-
-            //Gestion de l'affichage conditionnel du message d'erreur en fonction de la réponse de checkUniqueFieldRequirements()*/
-            handleDisplay(requirementsMet, $element.id);
-
-            //Gestion du state global de validation du formulaire
-            UpdateFormValidState(requirementsMet);
+            handleDisplay(checkUniqueFieldRequirements($element.id), $element.id);
+            UpdateFormValidState(checkUniqueFieldRequirements($element.id));            
           })
 
         /*traitement séparé pour les boutons Radio de selection de ville*/
-        requirementsMet = checkLocationRequirements();
-        handleDisplay(requirementsMet, 'location-selectors');
-        UpdateFormValidState(requirementsMet);
 
-        //On renvoie ValidForm pour valider ou non le formulaire.
-        console.log("final validform: "+validForm);
+        handleDisplay(checkLocationRequirements(), 'location-selectors');
+        UpdateFormValidState(checkLocationRequirements());
         
         //Si le formulaire est valide, afficher un message de confirmation. 
         
-        if (true) 
+        if (validForm) 
         {
-          /*alert("Votre Inscription a bien été prise en compte");*/
-          document.getElementById("confirmation-message").className += '-visible';
-          document.getElementsByClassName("modal-body")[0].style.display ='none';
-          setTimeout(closeModal, 5000);
-          
+
+          alterModal("block", "none", "fermer");
+          hideErrorMessages();
+          document.getElementById("btn-submit").removeEventListener("click", validate);
+          document.getElementById("btn-submit").addEventListener("click", closeModal);/*setTimeout(closeModal, 5000);*/
         } 
 
         //On renvoie la valeur de validForm. S'il est resté à true, alors on valide le formulaire.
-        return true;
+        return validForm;
 }
+
+/*************************************************************************************************************/
+/*Alter modale*/
+/*Fonction qui va afficher / cacher les champs du formulaire pour "transformer" la modale en message de confirmation*/
+
+function alterModal($confirmationVisibility, $formVisibility, $textValue) {
+console.log("APPEL DE ALTERMODAL");
+
+  
+  const childrenOfModalBody = [].slice.call(document.getElementById("signUpForm").querySelectorAll('div:not(.modal-error-message), p'));
+
+    childrenOfModalBody.forEach(element => {
+    console.log("altermodal dit "+element.id +" "+ $formVisibility);
+    element.style.display = $formVisibility;
+  })
+
+  document.getElementById("btn-submit").value = $textValue;
+  document.getElementById("confirmation-message").style.display = $confirmationVisibility;
+}
+
+/******************************************************************************************************************/
+/*Alter error messages*/
+/*Cette fonction va cacher l'ensemble des champs de messages d'erreur de la modale*/
+
+function hideErrorMessages ()
+{
+        const childrenOfModalBody = [].slice.call(document.getElementById("signUpForm").querySelectorAll("div.modal-error-message"));
+        
+        childrenOfModalBody.forEach(element => {
+        element.style.display = "none";
+})
+
+}
+
 
 /*************************************************************************************************************/
 /*Gère l'affichage de chaque message d'erreur du formulaire 
@@ -264,7 +292,6 @@ function checkUniqueFieldRequirements ($id) {
 }
 
 /*************************************************************************************************************/
-
 
 //Fonction qui rend un bloc visible
 

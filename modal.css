@@ -28,14 +28,18 @@ body {
   position: relative;
   top: 0;
   left: 0;
+  bottom:0;
+  right:0;
   display: none;
-  height: 90vh;
-  width: 100%;
+  padding: 40% 10vh 10vh;
+  max-width: 500px;
+  text-align:center;
+  /*background-color: black;*/
 
 }
 
-.confirmation-message-visible {
-  background-color: black;
+/*.confirmation-message-visible {
+  
   position: relative;
   box-sizing:border-box;
   top: 0;
@@ -43,11 +47,11 @@ body {
   height: 90vh;
   display: block;
   font-size: 25px;
-  text-align:center;
+  
   margin: 0 auto;
   padding: 40vh 10vh 10vh;
   max-width: 500px;
-}
+}*/
 
 p {
   margin-bottom: 0;
@@ -166,7 +170,15 @@ img {
   }
 }
 
+.confirmation-message {
+  font-size: 3vw;
+}
+
 @media screen and (max-width: 540px) {
+  .confirmation-message {
+    font-size: 5vw;
+  }
+  
   .topnav a {
     display: none;
     padding: 20px 20px;
@@ -606,7 +618,7 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     white-space: normal;
   }
   .hero-text {

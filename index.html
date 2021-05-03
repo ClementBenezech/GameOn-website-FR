@@ -67,7 +67,7 @@
               id="signUpForm"
               action="index.html"
               method="get" 
-              onsubmit="event.preventDefault();return validate();"
+              onsubmit="event.preventDefault();"
                          >
 
 
@@ -126,7 +126,7 @@
                 <input type="number" class="text-control" id="quantity" name="quantity"   min="0" max="99" > 
               </div>
               <div id='quantity-error-message' class='modal-error-message'>Vous devez entrer un chiffre</div>
-              <p class="text-label">Quelles villes ?</p>
+              <p class="text-label">Quelles villes ?<p>
               <div
                 class="formData"
                 id="location-selectors"> <!--added an Id to be able to query children radios in the JS validation-->
