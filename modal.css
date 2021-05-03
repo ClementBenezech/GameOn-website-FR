@@ -116,12 +116,13 @@ img {
     left: 0;
     z-index: 99;
     /*padding-top: 3vh;*/
-    margin-top: 6vh;
+    margin-top: 9vh;
   }
 
   .topnav a {
     display: none;
-    padding: 20px 20px;
+    padding: 3vw 6vh;
+    font-size: 4vw;
   }
   .topnav a.icon {
     float: right;
@@ -129,7 +130,7 @@ img {
     margin-top: 1vh;
     color: red;
     position: absolute;
-    top: -6vh;
+    top: -7vh;
     right: 0;
   }
 }
@@ -144,8 +145,8 @@ img {
     top: 0;
     right: 0;
     z-index: 99;
-    margin-top: 6vh;
-    background-color: rgba(255, 255, 255, 0.822);
+    margin-top: 9vh;
+    background-color: rgba(255, 255, 255, 0.99);
   }
 
   .topnav a:hover {
@@ -158,7 +159,7 @@ img {
     margin-top: 5px;
     color: red;
     position: absolute;
-    top: -6vh;
+    top: -7vh;
     right: 0;
   }
   .topnav.responsive a {
@@ -608,7 +609,9 @@ footer {
 
   /*Giving the logo image a fixed with in vw*/
   .header-logo > img {
-    width: 40vw;
+    /*width: 40vw;*/
+    height: 6vh;
+    width:auto;
     margin-left: 3vw;
   }
   .hero-content::after {
