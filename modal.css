@@ -28,14 +28,14 @@ body {
   position: relative;
   top: 0;
   left: 0;
-  bottom:0;
-  right:0;
+  bottom: 0;
+  right: 0;
   display: none;
-  padding: 40% 10vh 10vh;
+  padding: 40% 2vw 2vw;
   max-width: 500px;
-  text-align:center;
+  text-align: center;
+  font-size: 25px;
   /*background-color: black;*/
-
 }
 
 /*.confirmation-message-visible {
@@ -171,15 +171,11 @@ img {
   }
 }
 
-.confirmation-message {
-  font-size: 3vw;
-}
-
 @media screen and (max-width: 540px) {
   .confirmation-message {
     font-size: 5vw;
   }
-  
+
   .topnav a {
     display: none;
     padding: 20px 20px;
@@ -409,7 +405,7 @@ input[data-error]::after {
   opacity: 1;
   cursor: pointer;
   transform: scale(0.7);
-  z-index:4;
+  z-index: 4;
 }
 .close:before,
 .close:after {
@@ -611,7 +607,8 @@ footer {
   .header-logo > img {
     /*width: 40vw;*/
     height: 6vh;
-    width:auto;
+    width: auto;
+    max-width: 75vw;
     margin-left: 3vw;
   }
   .hero-content::after {

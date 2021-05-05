@@ -1,6 +1,4 @@
 var mailFormat = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
-
-        
 var validForm = true;
 
 function editNav() {
@@ -25,35 +23,12 @@ console.log(closeBtn);
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+//On ajoute un event listener sur le bouton submit pour lui assigner l'appel de la fonction validate quand l'utilisateur clique
 document.getElementById("btn-submit").addEventListener("click", validate);
-/*modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));*/
 
 closeBtn.addEventListener("click", closeModal);
-/*formBtn.addEventListener("click", validate);*/
 
-/*************************************************************************************************************/
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
-
-/*************************************************************************************************************/
-
-//Close Modal form function
-  function closeModal() {
-    
-    document.getElementById("btn-submit").removeEventListener("click", closeModal);
-    document.getElementById("btn-submit").addEventListener("click", validate);
-    
-    console.log("JUSTE AVANT ALTERMODAL DANS CLOSEMODAL");
-
-    
-    alterModal("none", "block", "C'est parti!"); 
-
-    modalbg.style.display = "none";
-    
-  }
 
 /*************************************************************************************************************/
 /*                  FONCTION: Gestion de la validation des entrées de formulaire.
@@ -109,7 +84,7 @@ function validate() {
         {
 
           alterModal("block", "none", "fermer");
-          hideErrorMessages();
+          /*hideErrorMessages();*/
           document.getElementById("btn-submit").removeEventListener("click", validate);
           document.getElementById("btn-submit").addEventListener("click", closeModal);/*setTimeout(closeModal, 5000);*/
         } 
@@ -118,8 +93,31 @@ function validate() {
         return validForm;
 }
 
+
 /*************************************************************************************************************/
-/*Alter modale*/
+/* Ouverture de la modale */
+
+function launchModal() {
+  modalbg.style.display = "block";
+}
+
+/*************************************************************************************************************/
+/*fermeture de la modale*/
+
+  function closeModal() {
+    
+    document.getElementById("btn-submit").removeEventListener("click", closeModal);
+    document.getElementById("btn-submit").addEventListener("click", validate);
+
+    /*On "reset" l'affichage des champs dans la modale (Ici on va réafficher l'intégralité des champs de la modale qui avaient été cachés, sauf les messages d'erreur*/
+    
+    alterModal("none", "block", "C'est parti!"); 
+
+    modalbg.style.display = "none";
+    
+  }
+
+/*************************************************************************************************************/
 /*Fonction qui va afficher / cacher les champs du formulaire pour "transformer" la modale en message de confirmation*/
 
 function alterModal($confirmationVisibility, $formVisibility, $textValue) {
@@ -137,19 +135,7 @@ console.log("APPEL DE ALTERMODAL");
   document.getElementById("confirmation-message").style.display = $confirmationVisibility;
 }
 
-/******************************************************************************************************************/
-/*Alter error messages*/
-/*Cette fonction va cacher l'ensemble des champs de messages d'erreur de la modale*/
 
-function hideErrorMessages ()
-{
-        const childrenOfModalBody = [].slice.call(document.getElementById("signUpForm").querySelectorAll("div.modal-error-message"));
-        
-        childrenOfModalBody.forEach(element => {
-        element.style.display = "none";
-})
-
-}
 
 
 /*************************************************************************************************************/
@@ -253,7 +239,6 @@ function checkUniqueFieldRequirements ($id) {
     break;
   case 'birthdate':
   case 'quantity':
-  case 'email':
     if (document.getElementById($id).value)
     {
       return true;
@@ -263,9 +248,9 @@ function checkUniqueFieldRequirements ($id) {
       return false;
       
     };
-  /*break;*/
+  break;
   case 'email':
-    if (document.getElementById($id).value.match(mailFormat))
+    if (document.getElementById($id).value && document.getElementById($id).value.match(mailFormat))
       {
         return true;
       }
@@ -309,6 +294,16 @@ function displayNone ($element) {
 }
 
 
+/******************************************************************************************************************/
+/*DEPRECIEE, non utilisée. Cette fonction va cacher l'ensemble des champs de messages d'erreur de la modale. On l'appelle lors de la validation du formulaire
 
-/*************************************************************************************************************/
+function hideErrorMessages ()
+{
+        const childrenOfModalBody = [].slice.call(document.getElementById("signUpForm").querySelectorAll("div.modal-error-message"));
+        
+        childrenOfModalBody.forEach(element => {
+        element.style.display = "none";
+})
+
+}*/
 
