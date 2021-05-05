@@ -80,7 +80,7 @@ function validate() {
         
         //Si le formulaire est valide, afficher un message de confirmation. 
         
-        if (validForm) 
+        if (validForm)
         {
 
           alterModal("block", "none", "fermer");
@@ -111,7 +111,7 @@ function launchModal() {
 
     /*On "reset" l'affichage des champs dans la modale (Ici on va réafficher l'intégralité des champs de la modale qui avaient été cachés, sauf les messages d'erreur*/
     
-    alterModal("none", "block", "C'est parti!"); 
+    alterModal("none", "block", "C'est parti!");
 
     modalbg.style.display = "none";
     
@@ -228,7 +228,7 @@ function checkUniqueFieldRequirements ($id) {
   switch ($id) {
   case 'first':
   case 'last':
-    if ( document.getElementById($id).value.length > 2 && document.getElementById($id).value)
+    if ( document.getElementById($id).value.length >= 2 && document.getElementById($id).value)
     {
       return true;
     }
