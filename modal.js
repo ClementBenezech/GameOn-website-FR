@@ -27,6 +27,22 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 //On ajoute un event listener sur le bouton submit pour lui assigner l'appel de la fonction validate quand l'utilisateur clique
 document.getElementById("btn-submit").addEventListener("click", validate);
 
+//ajout d'event listeners permettant la gestion des validations à la volée sur la perte de focus.
+
+
+
+//Selection des champs du formulaire
+const formFields = document.getElementById("signUpForm").querySelectorAll(".text-control , #checkbox1");
+        
+/*Creation des event listeners à la perte de focus pour validation immédiate*/
+formFields.forEach($element => {
+
+  document.getElementById($element.id).addEventListener("blur", () => {
+    handleDisplay(checkUniqueFieldRequirements($element.id), $element.id);
+    UpdateFormValidState(checkUniqueFieldRequirements($element.id));        
+  });          
+})
+
 closeBtn.addEventListener("click", closeModal);
 
 
